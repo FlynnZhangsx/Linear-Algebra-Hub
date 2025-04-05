@@ -1,0 +1,13 @@
+<!-- templates/knowledge.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>Linear Algebra Knowledge</h2>
+<ul>
+    {% for topic in topics %}
+    <li>
+        <a href="{{ url_for('knowledge_detail', knowledge_id=topic.id) }}">{{ topic.title }}</a>
+        <small>Posted on {{ topic.created_at }}</small>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

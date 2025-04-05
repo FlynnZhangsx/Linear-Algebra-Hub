@@ -1,0 +1,53 @@
+<!-- templates/layout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "Linear Algebra Hub" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<form action="{{ url_for('search') }}" method="get" class="search-form">
+    <input type="text" name="query" placeholder="Search knowledge...">
+    <button type="submit">Search</button>
+</form>
+<body>
+    <header>
+        <h1>Linear Algebra Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('favorites') }}">Favorites</a></li>
+                <li><a href="{{ url_for('messages') }}">Messages</a></li>
+                <li><a href="{{ url_for('notifications') }}">Notifications</a></li>
+
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('knowledge') }}">Knowledge</a></li>
+                <li><a href="{{ url_for('discussion') }}">Discussion</a></li>
+                <li><a href="{{ url_for('upload') }}">Upload</a></li>
+                {% if session.get('loggedin') %}
+                    <li>Welcome, {{ session.username }}</li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2025 Linear Algebra Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+

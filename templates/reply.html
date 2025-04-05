@@ -1,0 +1,10 @@
+<!-- templates/reply.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>Reply to Post</h2>
+<form method="post">
+    <label>Your Reply:</label>
+    <textarea name="content" rows="10" required></textarea>
+    <button type="submit">Submit Reply</button>
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ knowledge_point.title }}</title>
+</head>
+<body>
+    <h1>{{ knowledge_point.title }}</h1>
+    <p>{{ knowledge_point.content }}</p>
+    {% if session.get('user_id') %}
+        <form action="{{ url_for('knowledge_point', knowledge_point_id=knowledge_point.id) }}" method="post">
+            <button type="submit">
+                {% if knowledge_point.id in [fav.knowledge_point_id for fav in current_user.favorites] %}
+                    取消收藏
+                {% else %}
+                    收藏
+                {% endif %}
+            </button>
+        </form>
+    {% else %}
+        <p>请登录以收藏知识点。</p>
+    {% endif %}
+</body>
+</html>

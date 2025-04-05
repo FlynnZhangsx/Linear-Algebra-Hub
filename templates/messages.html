@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>My Messages</h2>
+<a href="{{ url_for('send_message') }}">Send New Message</a>
+<ul>
+  {% for msg in messages %}
+    <li>
+      <strong>From: {{ msg.sender_name }}</strong>
+      <p>{{ msg.message }}</p>
+      <small>Received on: {{ msg.created_at }}</small>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

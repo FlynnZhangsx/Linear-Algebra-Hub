@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>My Favorites</h2>
+<ul>
+  {% for fav in favorites %}
+    <li>
+      <a href="{{ url_for('knowledge_detail', knowledge_id=fav.id) }}">{{ fav.title }}</a>
+      <small>Favorited on: {{ fav.favorite_time }}</small>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

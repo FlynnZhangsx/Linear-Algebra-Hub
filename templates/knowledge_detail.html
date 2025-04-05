@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>{{ topic.title }}</h2>
+<p>{{ topic.content }}</p>
+<small>Posted on {{ topic.created_at }}</small>
+
+<hr>
+<!-- 显示评分和评分按钮 -->
+<div class="rating">
+    <p>Total Rating: {{ total_rating }}</p>
+    {% if session.get('loggedin') %}
+        <a href="{{ url_for('rate', knowledge_id=topic.id) }}?rating=1" class="rate-btn">👍 Like</a>
+        <a href="{{ url_for('rate', knowledge_id=topic.id) }}?rating=-1" class="rate-btn">👎 Dislike</a>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Log in</a> to rate this topic.</p>
+    {% endif %}
+</div>
+<hr>
+<!-- 评论区域 -->
+<div class="comments">
+    <h3>Comments</h3>
+    {% if session.get('loggedin') %}
+    <form action="{{ url_for('comment', knowledge_id=topic.id) }}" method="post">
+        <textarea name="comment" rows="4" placeholder="Write your comment here..." required></textarea>
+        <button type="submit">Post Comment</button>
+    </form>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Log in</a> to post a comment.</p>
+    {% endif %}
+    
+    {% if comments %}
+        <ul>
+            {% for c in comments %}
+            <li>
+                <p>{{ c.comment }}</p>
+                <small>By {{ c.username }} on {{ c.created_at }}</small>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

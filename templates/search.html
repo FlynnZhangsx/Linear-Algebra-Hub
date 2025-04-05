@@ -1,0 +1,18 @@
+<!-- templates/search.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+{% if results %}
+    <ul>
+        {% for topic in results %}
+            <li>
+                <a href="{{ url_for('knowledge_detail', knowledge_id=topic.id) }}">{{ topic.title }}</a>
+                <small>Posted on {{ topic.created_at }}</small>
+                <p>{{ topic.content[:200] }}{% if topic.content|length > 200 %}...{% endif %}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No knowledge points matched your search.</p>
+{% endif %}
+{% endblock %}
